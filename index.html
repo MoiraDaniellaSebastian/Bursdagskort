@@ -750,11 +750,11 @@
         </div>
         
         <!-- Birthday Text -->
-        <div class="birthday-text" id="birthdayText">Happy Birthday!</div>
+        <div class="birthday-text" id="birthdayText">Gratulerer med dagen!</div>
         
         <!-- Message Board -->
         <div class="message-board">
-            <p>Meow!Gratulerer med dagen! Håper dagen din blir like fin som deg! </p>
+            <p>Meow! Gratulerer med dagen! Håper dagen din blir like fin som deg!</p>
             <p>Klem fra meg og saus!</p>
         </div>
         
@@ -779,7 +779,7 @@
                 <!-- White chest patch -->
                 <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); width: 25px; height: 20px; background-color: #ffffff; border-radius: 50%;"></div>
             </div>
-            <div class="cat-talk-bubble" id="catTalk">Meow! Happy Birthday!</div>
+            <div class="cat-talk-bubble" id="catTalk">Meow! Gratulerer med dagen!</div>
         </div>
         
         <!-- Balloons -->
@@ -872,7 +872,7 @@
                     createConfetti(15);
                     
                     // Show cat talk bubble
-                    catTalk.textContent = "Pop! That was fun!";
+                    catTalk.textContent = "Pop! Gøy!";
                     catTalk.style.opacity = '1';
                     setTimeout(() => {
                         catTalk.style.opacity = '0';
@@ -887,12 +887,12 @@
                 
                 // Change message randomly
                 const messages = [
-                    "Meow! Happy Birthday!",
-                    "Purr~ Have a great day!",
-                    "Meow meow! I love you!",
-                    "Birthday cuddles!",
-                    "Let's play with yarn!",
-                    "Time for birthday treats!"
+                    "Mjau! Gratulerer med dagen!",
+                    "Purr~ Ha en fin dag!",
+                    "Mjau mjau! Jeg er glad i deg!",
+                    "Bursdagsklemmer!",
+                    "La oss leke med garn!",
+                    "På tide med bursdagsgodter!"
                 ];
                 catTalk.textContent = messages[Math.floor(Math.random() * messages.length)];
                 
@@ -940,4 +940,91 @@
             
             // Sun interaction
             sun.addEventListener('click', function() {
-                document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a7)" ?
+                document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a
+                    // Sun interaction
+            sun.addEventListener('click', function() {
+                document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a7)" ? 
+                    "linear-gradient(to bottom, #ff9e7d, #ffde59)" : 
+                    "linear-gradient(to bottom, #87CEEB, #f5f9a7)";
+            });
+            
+            // Cake interaction
+            cake.addEventListener('click', function() {
+                if (flame.style.display === 'none') {
+                    flame.style.display = 'block';
+                } else {
+                    flame.style.display = 'none';
+                    createConfetti(30);
+                    
+                    // Show cat talk bubble
+                    catTalk.textContent = "Ønsk deg noe!";
+                    catTalk.style.opacity = '1';
+                    setTimeout(() => {
+                        catTalk.style.opacity = '0';
+                    }, 3000);
+                }
+            });
+            
+            // Gift interaction
+            gift.addEventListener('click', function() {
+                const currentHeight = parseFloat(getComputedStyle(gift.querySelector('.gift-lid')).bottom);
+                
+                if (currentHeight === 30) {
+                    gift.querySelector('.gift-lid').style.bottom = '50px';
+                    gift.querySelector('.gift-bow').style.bottom = '60px';
+                    createConfetti(20);
+                    
+                    // Show cat talk bubble
+                    catTalk.textContent = "Jippi! Presang tid!";
+                    catTalk.style.opacity = '1';
+                    setTimeout(() => {
+                        catTalk.style.opacity = '0';
+                    }, 3000);
+                } else {
+                    gift.querySelector('.gift-lid').style.bottom = '30px';
+                    gift.querySelector('.gift-bow').style.bottom = '40px';
+                }
+            });
+            
+            // Balloon interactions
+            balloon1.addEventListener('click', function() {
+                popBalloon(balloon1);
+            });
+            
+            balloon2.addEventListener('click', function() {
+                popBalloon(balloon2);
+            });
+            
+            // Flower interactions
+            function growFlower(flower) {
+                const head = flower.querySelector('.flower-head');
+                const stem = flower.querySelector('.flower-stem');
+                
+                head.style.transform = 'translateX(-50%) scale(1.2)';
+                stem.style.height = parseInt(getComputedStyle(stem).height) + 5 + 'px';
+                
+                setTimeout(() => {
+                    head.style.transform = 'translateX(-50%) scale(1)';
+                }, 500);
+            }
+            
+            flower1.addEventListener('click', function() {
+                growFlower(flower1);
+            });
+            
+            flower2.addEventListener('click', function() {
+                growFlower(flower2);
+            });
+            
+            flower3.addEventListener('click', function() {
+                growFlower(flower3);
+            });
+            
+            // Initial confetti burst
+            setTimeout(() => {
+                createConfetti(30);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
