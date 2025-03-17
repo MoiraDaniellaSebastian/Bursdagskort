@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive HayDay-Style Birthday Card with Cute Black Cat</title>
+    <title>Interactive HayDay-Style Birthday Card with Cute Grey Cat</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
         
@@ -285,7 +285,7 @@
             transform: translateX(-50%);
             width: 60px;
             height: 55px;
-            background-color: #000;
+            background-color: #8d8d8d;
             border-radius: 50%;
         }
         
@@ -750,11 +750,11 @@
         </div>
         
         <!-- Birthday Text -->
-        <div class="birthday-text" id="birthdayText">Gratulerer med dagen!</div>
+        <div class="birthday-text" id="birthdayText">Happy Birthday!</div>
         
         <!-- Message Board -->
         <div class="message-board">
-            <p>Meow! Håper dagen din blir like fin som deg!</p>
+            <p>Meow!Gratulerer med dagen! Håper dagen din blir like fin som deg! </p>
             <p>Klem fra meg og saus!</p>
         </div>
         
@@ -841,10 +841,49 @@
             }
             wagTail();
             
+            // Create confetti function
+            function createConfetti(amount) {
+                for (let i = 0; i < amount; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    
+                    // Random properties
+                    const colors = ['#ff6b9d', '#6bceff', '#ffde59', '#8ed246', '#e83d62'];
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.opacity = '1';
+                    confetti.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    confettiContainer.appendChild(confetti);
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }
+            }
+            
+            // Balloon pop function
+            function popBalloon(balloon) {
+                balloon.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    balloon.style.opacity = '0';
+                    createConfetti(15);
+                    
+                    // Show cat talk bubble
+                    catTalk.textContent = "Pop! That was fun!";
+                    catTalk.style.opacity = '1';
+                    setTimeout(() => {
+                        catTalk.style.opacity = '0';
+                    }, 3000);
+                }, 300);
+            }
+            
             // Cat interaction
             cat.addEventListener('click', function() {
                 // Show speech bubble
-                catTalk.style.opacity = 1;
+                catTalk.style.opacity = '1';
                 
                 // Change message randomly
                 const messages = [
@@ -865,7 +904,7 @@
                 
                 // Hide speech bubble after 3 seconds
                 setTimeout(() => {
-                    catTalk.style.opacity = 0;
+                    catTalk.style.opacity = '0';
                 }, 3000);
                 
                 // Create confetti when cat is clicked
@@ -901,64 +940,4 @@
             
             // Sun interaction
             sun.addEventListener('click', function() {
-                document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a7)" ? 
-                    "linear-gradient(to bottom, #ff9e7d, #ffde59)" : 
-                    "linear-gradient(to bottom, #87CEEB, #f5f9a7)";
-            });
-            
-            // Cake interaction
-            cake.addEventListener('click', function() {
-                if (flame.style.display === 'none') {
-                    flame.style.display = 'block';
-                } else {
-                    flame.style.display = 'none';
-                    createConfetti(30);
-                    
-                    // Show cat talk bubble
-                    catTalk.textContent = "Make a wish!";
-                    catTalk.style.opacity = 1;
-                    setTimeout(() => {
-                        catTalk.style.opacity = 0;
-                    }, 3000);
-                }
-            });
-            
-            // Gift interaction
-            gift.addEventListener('click', function() {
-                const currentHeight = parseFloat(getComputedStyle(gift.querySelector('.gift-lid')).bottom);
-                
-                if (currentHeight === 30) {
-                    gift.querySelector('.gift-lid').style.bottom = '50px';
-                    gift.querySelector('.gift-bow').style.bottom = '60px';
-                    createConfetti(20);
-                    
-                    // Show cat talk bubble
-                    catTalk.textContent = "Yay! Present time!";
-                    catTalk.style.opacity = 1;
-                    setTimeout(() => {
-                        catTalk.style.opacity = 0;
-                    }, 3000);
-                } else {
-                    gift.querySelector('.gift-lid').style.bottom = '30px';
-                    gift.querySelector('.gift-bow').style.bottom = '40px';
-                }
-            });
-            
-            // Balloon interactions
-            balloon1.addEventListener('click', function() {
-                popBalloon(balloon1);
-            });
-            
-            balloon2.addEventListener('click', function() {
-                popBalloon(balloon2);
-            });
-            
-            function popBalloon(balloon) {
-                balloon.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    balloon.style.opacity = 0;
-                    createConfetti(15);
-                    
-                    // Show cat talk bubble
-                    catTalk.textContent = "Pop! That was fun!";
-                    catTalk.
+                document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a7)" ?
