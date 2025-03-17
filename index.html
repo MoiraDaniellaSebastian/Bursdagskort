@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive HayDay-Style Birthday Card with Cute Black Cat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+        
+        body {
+            font-family: 'Bubblegum Sans', cursive;
+            background: linear-gradient(to bottom, #87CEEB, #f5f9a7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            color: #7e5c43;
+        }
+        
+        .farm-scene {
+            width: 500px;
+            height: 650px;
+            position: relative;
+            background-color: #c2e8f7;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            cursor: default;
+        }
+        
+        .grass {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #8ed246;
+            border-radius: 0 0 25px 25px;
+        }
+        
+        .fence {
+            position: absolute;
+            bottom: 95px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .fence-post {
+            width: 10px;
+            height: 40px;
+            background-color: #a17449;
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .fence-rail {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: #c19a6b;
+        }
+        
+        .fence-rail-top {
+            top: 5px;
+        }
+        
+        .fence-rail-bottom {
+            bottom: 5px;
+        }
+        
+        .sun {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background-color: #ffde59;
+            border-radius: 50%;
+            box-shadow: 0 0 30px #ffde59;
+            animation: pulse 2s infinite alternate;
+            cursor: pointer;
+        }
+        
+        .sun::before, .sun::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffb443;
+        }
+        
+        .sun::before {
+            width: 70%;
+            height: 70%;
+            border-radius: 50%;
+        }
+        
+        .cloud {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+            animation: float-cloud 90s infinite linear;
+            cursor: pointer;
+        }
+        
+        .cloud-1 {
+            top: 60px;
+            left: -80px;
+            width: 100px;
+            height: 50px;
+        }
+        
+        .cloud-2 {
+            top: 100px;
+            left: -120px;
+            width: 140px;
+            height: 60px;
+            animation-delay: 10s;
+        }
+        
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .cloud-1::before {
+            width: 50px;
+            height: 50px;
+            top: -20px;
+            left: 20px;
+        }
+        
+        .cloud-1::after {
+            width: 60px;
+            height: 60px;
+            top: -10px;
+            left: 40px;
+        }
+        
+        .cloud-2::before {
+            width: 70px;
+            height: 70px;
+            top: -25px;
+            left: 25px;
+        }
+        
+        .cloud-2::after {
+            width: 80px;
+            height: 80px;
+            top: -15px;
+            left: 55px;
+        }
+        
+        .flower {
+            position: absolute;
+            bottom: 100px;
+            width: 30px;
+            height: 60px;
+            cursor: pointer;
+        }
+        
+        .flower-stem {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 40px;
+            background-color: #8ed246;
+        }
+        
+        .flower-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+        }
+        
+        .flower-petal {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #ff85a2;
+            border-radius: 50%;
+        }
+        
+        .flower-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: #ffde59;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .flower1 {
+            left: 50px;
+        }
+        
+        .flower2 {
+            left: 100px;
+            bottom: 105px;
+        }
+        
+        .flower3 {
+            right: 80px;
+            bottom: 110px;
+        }
+        
+        .birthday-text {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 38px;
+            color: #e83d62;
+            text-shadow: 3px 3px 0 #fff, -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff;
+            animation: bounce 2s infinite alternate;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .message-board {
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background-color: #f4e0ba;
+            border: 8px solid #a17449;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+        
+        .cat-container {
+            position: absolute;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .cat {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .cat-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 55px;
+            background-color: #8d8d8d;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+        
+        .cat-head {
+            position: absolute;
+            bottom: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 55px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+        
+        .cat-ear {
+            position: absolute;
+            bottom: 80px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid #8d8d8d;
+        }
+        
+        .cat-ear-left {
+            left: 25px;
+            transform: rotate(-30deg);
+        }
+        
+        .cat-ear-right {
+            right: 25px;
+            transform: rotate(30deg);
+        }
+        
+        .cat-eye {
+            position: absolute;
+            bottom: 65px;
+            width: 12px;
+            height: 18px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .cat-eye-left {
+            left: 37px;
+        }
+        
+        .cat-eye-right {
+            right: 37px;
+        }
+        
+        .cat-pupil {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 6px;
+            height: 12px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+        
+        .cat-nose {
+            position: absolute;
+            bottom: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 5px;
+            background-color: #ff9db5;
+            border-radius: 50%;
+        }
+        
+        .cat-mouth {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 8px;
+            border-radius: 0 0 20px 20px;
+            border-bottom: 2px solid #ff9db5;
+        }
+        
+        .cat-tail {
+            position: absolute;
+            bottom: 5px;
+            right: 25px;
+            width: 8px;
+            height: 50px;
+            background-color: #8d8d8d;
+            border-radius: 4px;
+            transform-origin: bottom;
+            transform: rotate(-20deg);
+        }
+        
+        .cat-paw {
+            position: absolute;
+            bottom: 0;
+            width: 15px;
+            height: 10px;
+            background-color: #ffffff;
+            border-radius: 7px 7px 3px 3px;
+        }
+        
+        .cat-paw-left {
+            left: 30px;
+        }
+        
+        .cat-paw-right {
+            right: 30px;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 35px;
+            height: 45px;
+            background-color: #ff6b9d;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 12px solid #ff6b9d;
+        }
+        
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 60px;
+            background-color: #fff;
+        }
+        
+        .balloon-1 {
+            top: 180px;
+            left: 80px;
+            background-color: #ff6b9d;
+            animation: float-balloon 5s infinite alternate;
+        }
+        
+        .balloon-2 {
+            top: 150px;
+            right: 70px;
+            background-color: #6bceff;
+            animation: float-balloon 4s infinite alternate-reverse;
+        }
+        
+        .cake {
+            position: absolute;
+            bottom: 130px;
+            right: 50px;
+            width: 70px;
+            height: 60px;
+            cursor: pointer;
+        }
+        
+        .cake-base {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #ffceb7;
+            border-radius: 5px 5px 10px 10px;
+        }
+        
+        .cake-middle {
+            position: absolute;
+            bottom: 40px;
+            left: 5px;
+            width: 60px;
+            height: 20px;
+            background-color: #ff9db5;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .cake-top {
+            position: absolute;
+            bottom: 60px;
+            left: 15px;
+            width: 40px;
+            height: 15px;
+            background-color: #ffceb7;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .candle {
+            position: absolute;
+            bottom: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 15px;
+            background-color: #fff;
+        }
+        
+        .flame {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 12px;
+            background-color: #ffde59;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px #ffde59;
+            animation: flicker 0.5s infinite alternate;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            opacity: 0;
+        }
+        
+        .gift {
+            position: absolute;
+            bottom: 130px;
+            left: 50px;
+            width: 50px;
+            height: 40px;
+            cursor: pointer;
+        }
+        
+        .gift-box {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #6bceff;
+            border-radius: 5px;
+        }
+        
+        .gift-lid {
+            position: absolute;
+            bottom: 30px;
+            left: -5px;
+            width: 60px;
+            height: 10px;
+            background-color: #4b9fe3;
+            border-radius: 5px;
+        }
+        
+        .gift-ribbon {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 40px;
+            background-color: #ff6b9d;
+        }
+        
+        .gift-bow {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+        }
+        
+        .gift-bow::before, .gift-bow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            background-color: #ff6b9d;
+            border-radius: 50%;
+        }
+        
+        .gift-bow::before {
+            left: 0;
+        }
+        
+        .gift-bow::after {
+            right: 0;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 30px #ffde59;
+            }
+            100% {
+                transform: scale(1.1);
+                box-shadow: 0 0 50px #ffde59;
+            }
+        }
+        
+        @keyframes float-cloud {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(600px);
+            }
+        }
+        
+        @keyframes float-balloon {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes bounce {
+            0% {
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+        
+        @keyframes flicker {
+            0% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(-50%) scale(1.1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(500px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes meow {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .cat-talk-bubble {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 15px;
+            padding: 8px;
+            font-size: 14px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        .cat-talk-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="farm-scene">
+        <div class="grass"></div>
+        
+        <!-- Fence -->
+        <div class="fence">
+            <div class="fence-post" style="left: 0px">
+                <div class="fence-rail fence-rail-top"></div>
+                <div class="fence-rail fence-rail-bottom"></div>
+            </div>
+            <div class="fence-post" style="left: 100px">
+                <div class="fence-rail fence-rail-top"></div>
+                <div class="fence-rail fence-rail-bottom"></div>
+            </div>
+            <div class="fence-post" style="left: 200px">
+                <div class="fence-rail fence-rail-top"></div>
+                <div class="fence-rail fence-rail-bottom"></div>
+            </div>
+            <div class="fence-post" style="left: 300px">
+                <div class="fence-rail fence-rail-top"></div>
+                <div class="fence-rail fence-rail-bottom"></div>
+            </div>
+            <div class="fence-post" style="left: 400px">
+                <div class="fence-rail fence-rail-top"></div>
+                <div class="fence-rail fence-rail-bottom"></div>
+            </div>
+            <div class="fence-post" style="left: 500px">
+                <div class="fence-rail fence-rail-top"></div>
+                <div class="fence-rail fence-rail-bottom"></div>
+            </div>
+        </div>
+        
+        <!-- Sun -->
+        <div class="sun" id="sun"></div>
+        
+        <!-- Clouds -->
+        <div class="cloud cloud-1" id="cloud1"></div>
+        <div class="cloud cloud-2" id="cloud2"></div>
+        
+        <!-- Flowers -->
+        <div class="flower flower1" id="flower1">
+            <div class="flower-stem"></div>
+            <div class="flower-head">
+                <div class="flower-petal" style="top: -6px; left: 7px;"></div>
+                <div class="flower-petal" style="top: 7px; left: -6px;"></div>
+                <div class="flower-petal" style="top: 7px; left: 19px;"></div>
+                <div class="flower-petal" style="top: 19px; left: 7px;"></div>
+                <div class="flower-center"></div>
+            </div>
+        </div>
+        
+        <div class="flower flower2" id="flower2">
+            <div class="flower-stem"></div>
+            <div class="flower-head">
+                <div class="flower-petal" style="top: -6px; left: 7px;"></div>
+                <div class="flower-petal" style="top: 7px; left: -6px;"></div>
+                <div class="flower-petal" style="top: 7px; left: 19px;"></div>
+                <div class="flower-petal" style="top: 19px; left: 7px;"></div>
+                <div class="flower-center"></div>
+            </div>
+        </div>
+        
+        <div class="flower flower3" id="flower3">
+            <div class="flower-stem"></div>
+            <div class="flower-head">
+                <div class="flower-petal" style="top: -6px; left: 7px;"></div>
+                <div class="flower-petal" style="top: 7px; left: -6px;"></div>
+                <div class="flower-petal" style="top: 7px; left: 19px;"></div>
+                <div class="flower-petal" style="top: 19px; left: 7px;"></div>
+                <div class="flower-center"></div>
+            </div>
+        </div>
+        
+        <!-- Birthday Text -->
+        <div class="birthday-text" id="birthdayText">Gratulerer med dagen!</div>
+        
+        <!-- Message Board -->
+        <div class="message-board">
+            <p>Meow! Håper dagen din blir like fin som deg!</p>
+            <p>Klem fra meg og saus!</p>
+        </div>
+        
+        <!-- Cat -->
+        <div class="cat-container" id="cat">
+            <div class="cat">
+                <div class="cat-body"></div>
+                <div class="cat-head"></div>
+                <div class="cat-ear cat-ear-left"></div>
+                <div class="cat-ear cat-ear-right"></div>
+                <div class="cat-eye cat-eye-left">
+                    <div class="cat-pupil" id="leftPupil"></div>
+                </div>
+                <div class="cat-eye cat-eye-right">
+                    <div class="cat-pupil" id="rightPupil"></div>
+                </div>
+                <div class="cat-nose"></div>
+                <div class="cat-mouth"></div>
+                <div class="cat-tail" id="catTail"></div>
+                <div class="cat-paw cat-paw-left"></div>
+                <div class="cat-paw cat-paw-right"></div>
+                <!-- White chest patch -->
+                <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); width: 25px; height: 20px; background-color: #ffffff; border-radius: 50%;"></div>
+            </div>
+            <div class="cat-talk-bubble" id="catTalk">Meow! Happy Birthday!</div>
+        </div>
+        
+        <!-- Balloons -->
+        <div class="balloon balloon-1" id="balloon1"></div>
+        <div class="balloon balloon-2" id="balloon2"></div>
+        
+        <!-- Cake -->
+        <div class="cake" id="cake">
+            <div class="cake-base"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-top"></div>
+            <div class="candle"></div>
+            <div class="flame" id="flame"></div>
+        </div>
+        
+        <!-- Gift -->
+        <div class="gift" id="gift">
+            <div class="gift-box"></div>
+            <div class="gift-lid"></div>
+            <div class="gift-ribbon"></div>
+            <div class="gift-bow"></div>
+        </div>
+        
+        <!-- Confetti (will be created by JS) -->
+        <div id="confetti-container"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cat = document.getElementById('cat');
+            const catTail = document.getElementById('catTail');
+            const catTalk = document.getElementById('catTalk');
+            const leftPupil = document.getElementById('leftPupil');
+            const rightPupil = document.getElementById('rightPupil');
+            const birthdayText = document.getElementById('birthdayText');
+            const sun = document.getElementById('sun');
+            const flame = document.getElementById('flame');
+            const cake = document.getElementById('cake');
+            const gift = document.getElementById('gift');
+            const balloon1 = document.getElementById('balloon1');
+            const balloon2 = document.getElementById('balloon2');
+            const flower1 = document.getElementById('flower1');
+            const flower2 = document.getElementById('flower2');
+            const flower3 = document.getElementById('flower3');
+            const cloud1 = document.getElementById('cloud1');
+            const cloud2 = document.getElementById('cloud2');
+            const confettiContainer = document.getElementById('confetti-container');
+            
+            // Tail wagging animation
+            let tailAngle = -20;
+            let tailDirection = 1;
+            
+            function wagTail() {
+                tailAngle += tailDirection * 2;
+                if (tailAngle > -10) tailDirection = -1;
+                if (tailAngle < -30) tailDirection = 1;
+                catTail.style.transform = `rotate(${tailAngle}deg)`;
+                requestAnimationFrame(wagTail);
+            }
+            wagTail();
+            
+            // Cat interaction
+            cat.addEventListener('click', function() {
+                // Show speech bubble
+                catTalk.style.opacity = 1;
+                
+                // Change message randomly
+                const messages = [
+                    "Meow! Happy Birthday!",
+                    "Purr~ Have a great day!",
+                    "Meow meow! I love you!",
+                    "Birthday cuddles!",
+                    "Let's play with yarn!",
+                    "Time for birthday treats!"
+                ];
+                catTalk.textContent = messages[Math.floor(Math.random() * messages.length)];
+                
+                // Animate cat
+                cat.style.animation = "meow 0.5s";
+                setTimeout(() => {
+                    cat.style.animation = "";
+                }, 500);
+                
+                // Hide speech bubble after 3 seconds
+                setTimeout(() => {
+                    catTalk.style.opacity = 0;
+                }, 3000);
+                
+                // Create confetti when cat is clicked
+                createConfetti(20);
+            });
+            
+            // Follow mouse with eyes
+            document.addEventListener('mousemove', function(e) {
+                const rect = cat.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const deltaX = e.clientX - centerX;
+                const deltaY = e.clientY - centerY;
+                
+                const angle = Math.atan2(deltaY, deltaX);
+                const distance = Math.min(3, Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 50);
+                
+                const moveX = Math.cos(angle) * distance;
+                const moveY = Math.sin(angle) * distance;
+                
+                leftPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                rightPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+            
+            // Birthday text animation
+            birthdayText.addEventListener('click', function() {
+                birthdayText.style.animation = "none";
+                birthdayText.offsetHeight; // Trigger reflow
+                birthdayText.style.animation = "bounce 0.5s 3";
+                createConfetti(50);
+            });
+            
+            // Sun interaction
+            sun.addEventListener('click', function() {
+                document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a7)" ? 
+                    "linear-gradient(to bottom, #ff9e7d, #ffde59)" : 
+                    "linear-gradient(to bottom, #87CEEB, #f5f9a7)";
+            });
+            
+            // Cake interaction
+            cake.addEventListener('click', function() {
+                if (flame.style.display === 'none') {
+                    flame.style.display = 'block';
+                } else {
+                    flame.style.display = 'none';
+                    createConfetti(30);
+                    
+                    // Show cat talk bubble
+                    catTalk.textContent = "Make a wish!";
+                    catTalk.style.opacity = 1;
+                    setTimeout(() => {
+                        catTalk.style.opacity = 0;
+                    }, 3000);
+                }
+            });
+            
+            // Gift interaction
+            gift.addEventListener('click', function() {
+                const currentHeight = parseFloat(getComputedStyle(gift.querySelector('.gift-lid')).bottom);
+                
+                if (currentHeight === 30) {
+                    gift.querySelector('.gift-lid').style.bottom = '50px';
+                    gift.querySelector('.gift-bow').style.bottom = '60px';
+                    createConfetti(20);
+                    
+                    // Show cat talk bubble
+                    catTalk.textContent = "Yay! Present time!";
+                    catTalk.style.opacity = 1;
+                    setTimeout(() => {
+                        catTalk.style.opacity = 0;
+                    }, 3000);
+                } else {
+                    gift.querySelector('.gift-lid').style.bottom = '30px';
+                    gift.querySelector('.gift-bow').style.bottom = '40px';
+                }
+            });
+            
+            // Balloon interactions
+            balloon1.addEventListener('click', function() {
+                popBalloon(balloon1);
+            });
+            
+            balloon2.addEventListener('click', function() {
+                popBalloon(balloon2);
+            });
+            
+            function popBalloon(balloon) {
+                balloon.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    balloon.style.opacity = 0;
+                    createConfetti(15);
+                    
+                    // Show cat talk bubble
+                    catTalk.textContent = "Pop! That was fun!";
+                    catTalk.
