@@ -808,220 +808,220 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const cat = document.getElementById('cat');
-            const catTail = document.getElementById('catTail');
-            const catTalk = document.getElementById('catTalk');
-            const leftPupil = document.getElementById('leftPupil');
-            const rightPupil = document.getElementById('rightPupil');
-            const birthdayText = document.getElementById('birthdayText');
-            const sun = document.getElementById('sun');
-            const flame = document.getElementById('flame');
-            const cake = document.getElementById('cake');
-            const gift = document.getElementById('gift');
-            const balloon1 = document.getElementById('balloon1');
-            const balloon2 = document.getElementById('balloon2');
-            const flower1 = document.getElementById('flower1');
-            const flower2 = document.getElementById('flower2');
-            const flower3 = document.getElementById('flower3');
-            const cloud1 = document.getElementById('cloud1');
-            const cloud2 = document.getElementById('cloud2');
-            const confettiContainer = document.getElementById('confetti-container');
-            
-            // Tail wagging animation
-            let tailAngle = -20;
-            let tailDirection = 1;
-            
-            function wagTail() {
-                tailAngle += tailDirection * 2;
-                if (tailAngle > -10) tailDirection = -1;
-                if (tailAngle < -30) tailDirection = 1;
-                catTail.style.transform = `rotate(${tailAngle}deg)`;
-                requestAnimationFrame(wagTail);
-            }
-            wagTail();
-            
-            // Create confetti function
-            function createConfetti(amount) {
-                for (let i = 0; i < amount; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    
-                    // Random properties
-                    const colors = ['#ff6b9d', '#6bceff', '#ffde59', '#8ed246', '#e83d62'];
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.top = '-10px';
-                    confetti.style.opacity = '1';
-                    confetti.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear forwards`;
-                    
-                    confettiContainer.appendChild(confetti);
-                    
-                    // Remove after animation completes
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 5000);
-                }
-            }
-            
-            // Balloon pop function
-            function popBalloon(balloon) {
-                balloon.style.transform = 'scale(1.2)';
+    document.addEventListener('DOMContentLoaded', function() {
+        const cat = document.getElementById('cat');
+        const catTail = document.getElementById('catTail');
+        const catTalk = document.getElementById('catTalk');
+        const leftPupil = document.getElementById('leftPupil');
+        const rightPupil = document.getElementById('rightPupil');
+        const birthdayText = document.getElementById('birthdayText');
+        const sun = document.getElementById('sun');
+        const flame = document.getElementById('flame');
+        const cake = document.getElementById('cake');
+        const gift = document.getElementById('gift');
+        const balloon1 = document.getElementById('balloon1');
+        const balloon2 = document.getElementById('balloon2');
+        const flower1 = document.getElementById('flower1');
+        const flower2 = document.getElementById('flower2');
+        const flower3 = document.getElementById('flower3');
+        const cloud1 = document.getElementById('cloud1');
+        const cloud2 = document.getElementById('cloud2');
+        const confettiContainer = document.getElementById('confetti-container');
+        
+        // Tail wagging animation
+        let tailAngle = -20;
+        let tailDirection = 1;
+        
+        function wagTail() {
+            tailAngle += tailDirection * 2;
+            if (tailAngle > -10) tailDirection = -1;
+            if (tailAngle < -30) tailDirection = 1;
+            catTail.style.transform = `rotate(${tailAngle}deg)`;
+            requestAnimationFrame(wagTail);
+        }
+        wagTail();
+        
+        // Create confetti function
+        function createConfetti(amount) {
+            for (let i = 0; i < amount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random properties
+                const colors = ['#ff6b9d', '#6bceff', '#ffde59', '#8ed246', '#e83d62'];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.opacity = '1';
+                confetti.style.animation = `confetti-fall ${Math.random() * 3 + 2}s linear forwards`;
+                
+                confettiContainer.appendChild(confetti);
+                
+                // Remove after animation completes
                 setTimeout(() => {
-                    balloon.style.opacity = '0';
-                    createConfetti(15);
-                    
-                    // Show cat talk bubble
-                    catTalk.textContent = "Pop! Gøy!";
-                    catTalk.style.opacity = '1';
-                    setTimeout(() => {
-                        catTalk.style.opacity = '0';
-                    }, 3000);
-                }, 300);
+                    confetti.remove();
+                }, 5000);
             }
-            
-            // Cat interaction
-            cat.addEventListener('click', function() {
-                // Show speech bubble
+        }
+        
+        // Balloon pop function
+        function popBalloon(balloon) {
+            balloon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                balloon.style.opacity = '0';
+                createConfetti(15);
+                
+                // Show cat talk bubble
+                catTalk.textContent = "Pop! Gøy!";
                 catTalk.style.opacity = '1';
-                
-                // Change message randomly
-                const messages = [
-                    "Mjau! Gratulerer med dagen!",
-                    "Purr~ Ha en fin dag!",
-                    "Mjau mjau! Jeg er glad i deg!",
-                    "Bursdagsklemmer!",
-                    "La oss leke med garn!",
-                    "På tide med bursdagsgodter!"
-                ];
-                catTalk.textContent = messages[Math.floor(Math.random() * messages.length)];
-                
-                // Animate cat
-                cat.style.animation = "meow 0.5s";
-                setTimeout(() => {
-                    cat.style.animation = "";
-                }, 500);
-                
-                // Hide speech bubble after 3 seconds
                 setTimeout(() => {
                     catTalk.style.opacity = '0';
                 }, 3000);
-                
-                // Create confetti when cat is clicked
-                createConfetti(20);
-            });
+            }, 300);
+        }
+        
+        // Cat interaction
+        cat.addEventListener('click', function() {
+            // Show speech bubble
+            catTalk.style.opacity = '1';
             
-            // Follow mouse with eyes
-            document.addEventListener('mousemove', function(e) {
-                const rect = cat.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const deltaX = e.clientX - centerX;
-                const deltaY = e.clientY - centerY;
-                
-                const angle = Math.atan2(deltaY, deltaX);
-                const distance = Math.min(3, Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 50);
-                
-                const moveX = Math.cos(angle) * distance;
-                const moveY = Math.sin(angle) * distance;
-                
-                leftPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                rightPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            });
+            // Change message randomly
+            const messages = [
+                "Mjau! Gratulerer med dagen!",
+                "Purr~ Ha en fin dag!",
+                "Mjau mjau! Jeg er glad i deg!",
+                "Bursdagsklemmer!",
+                "La oss leke med garn!",
+                "På tide med bursdagsgodter!"
+            ];
+            catTalk.textContent = messages[Math.floor(Math.random() * messages.length)];
             
-            // Birthday text animation
-            birthdayText.addEventListener('click', function() {
-                birthdayText.style.animation = "none";
-                birthdayText.offsetHeight; // Trigger reflow
-                birthdayText.style.animation = "bounce 0.5s 3";
-                createConfetti(50);
-            });
-            
-           // Sun interaction
-            sun.addEventListener('click', function() {
-                document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a7)" ? 
-                    "linear-gradient(to bottom, #ff9e7d, #ffde59)" : 
-                    "linear-gradient(to bottom, #87CEEB, #f5f9a7)";
-            });
-            
-            // Cake interaction
-            cake.addEventListener('click', function() {
-                if (flame.style.display === 'none') {
-                    flame.style.display = 'block';
-                } else {
-                    flame.style.display = 'none';
-                    createConfetti(30);
-                    
-                    // Show cat talk bubble
-                    catTalk.textContent = "Ønsk deg noe!";
-                    catTalk.style.opacity = '1';
-                    setTimeout(() => {
-                        catTalk.style.opacity = '0';
-                    }, 3000);
-                }
-            });
-            
-            // Gift interaction
-            gift.addEventListener('click', function() {
-                const currentHeight = parseFloat(getComputedStyle(gift.querySelector('.gift-lid')).bottom);
-                
-                if (currentHeight === 30) {
-                    gift.querySelector('.gift-lid').style.bottom = '50px';
-                    gift.querySelector('.gift-bow').style.bottom = '60px';
-                    createConfetti(20);
-                    
-                    // Show cat talk bubble
-                    catTalk.textContent = "Jippi! Presang tid!";
-                    catTalk.style.opacity = '1';
-                    setTimeout(() => {
-                        catTalk.style.opacity = '0';
-                    }, 3000);
-                } else {
-                    gift.querySelector('.gift-lid').style.bottom = '30px';
-                    gift.querySelector('.gift-bow').style.bottom = '40px';
-                }
-            });
-            
-            // Balloon interactions
-            balloon1.addEventListener('click', function() {
-                popBalloon(balloon1);
-            });
-            
-            balloon2.addEventListener('click', function() {
-                popBalloon(balloon2);
-            });
-            
-            // Flower interactions
-            function growFlower(flower) {
-                const head = flower.querySelector('.flower-head');
-                const stem = flower.querySelector('.flower-stem');
-                
-                head.style.transform = 'translateX(-50%) scale(1.2)';
-                stem.style.height = parseInt(getComputedStyle(stem).height) + 5 + 'px';
-                
-                setTimeout(() => {
-                    head.style.transform = 'translateX(-50%) scale(1)';
-                }, 500);
-            }
-            
-            flower1.addEventListener('click', function() {
-                growFlower(flower1);
-            });
-            
-            flower2.addEventListener('click', function() {
-                growFlower(flower2);
-            });
-            
-            flower3.addEventListener('click', function() {
-                growFlower(flower3);
-            });
-            
-            // Initial confetti burst
+            // Animate cat
+            cat.style.animation = "meow 0.5s";
             setTimeout(() => {
-                createConfetti(30);
-            }, 1000);
+                cat.style.animation = "";
+            }, 500);
+            
+            // Hide speech bubble after 3 seconds
+            setTimeout(() => {
+                catTalk.style.opacity = '0';
+            }, 3000);
+            
+            // Create confetti when cat is clicked
+            createConfetti(20);
         });
-    </script>
+        
+        // Follow mouse with eyes
+        document.addEventListener('mousemove', function(e) {
+            const rect = cat.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const deltaX = e.clientX - centerX;
+            const deltaY = e.clientY - centerY;
+            
+            const angle = Math.atan2(deltaY, deltaX);
+            const distance = Math.min(3, Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 50);
+            
+            const moveX = Math.cos(angle) * distance;
+            const moveY = Math.sin(angle) * distance;
+            
+            leftPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            rightPupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+        
+        // Birthday text animation
+        birthdayText.addEventListener('click', function() {
+            birthdayText.style.animation = "none";
+            birthdayText.offsetHeight; // Trigger reflow
+            birthdayText.style.animation = "bounce 0.5s 3";
+            createConfetti(50);
+        });
+        
+        // Sun interaction
+        sun.addEventListener('click', function() {
+            document.body.style.background = document.body.style.background === "linear-gradient(to bottom, #87CEEB, #f5f9a7)" ? 
+                "linear-gradient(to bottom, #ff9e7d, #ffde59)" : 
+                "linear-gradient(to bottom, #87CEEB, #f5f9a7)";
+        });
+        
+        // Cake interaction
+        cake.addEventListener('click', function() {
+            if (flame.style.display === 'none') {
+                flame.style.display = 'block';
+            } else {
+                flame.style.display = 'none';
+                createConfetti(30);
+                
+                // Show cat talk bubble
+                catTalk.textContent = "Ønsk deg noe!";
+                catTalk.style.opacity = '1';
+                setTimeout(() => {
+                    catTalk.style.opacity = '0';
+                }, 3000);
+            }
+        });
+        
+        // Gift interaction
+        gift.addEventListener('click', function() {
+            const currentHeight = parseFloat(getComputedStyle(gift.querySelector('.gift-lid')).bottom);
+            
+            if (currentHeight === 30) {
+                gift.querySelector('.gift-lid').style.bottom = '50px';
+                gift.querySelector('.gift-bow').style.bottom = '60px';
+                createConfetti(20);
+                
+                // Show cat talk bubble
+                catTalk.textContent = "Jippi! Presang tid!";
+                catTalk.style.opacity = '1';
+                setTimeout(() => {
+                    catTalk.style.opacity = '0';
+                }, 3000);
+            } else {
+                gift.querySelector('.gift-lid').style.bottom = '30px';
+                gift.querySelector('.gift-bow').style.bottom = '40px';
+            }
+        });
+        
+        // Balloon interactions
+        balloon1.addEventListener('click', function() {
+            popBalloon(balloon1);
+        });
+        
+        balloon2.addEventListener('click', function() {
+            popBalloon(balloon2);
+        });
+        
+        // Flower interactions
+        function growFlower(flower) {
+            const head = flower.querySelector('.flower-head');
+            const stem = flower.querySelector('.flower-stem');
+            
+            head.style.transform = 'translateX(-50%) scale(1.2)';
+            stem.style.height = parseInt(getComputedStyle(stem).height) + 5 + 'px';
+            
+            setTimeout(() => {
+                head.style.transform = 'translateX(-50%) scale(1)';
+            }, 500);
+        }
+        
+        flower1.addEventListener('click', function() {
+            growFlower(flower1);
+        });
+        
+        flower2.addEventListener('click', function() {
+            growFlower(flower2);
+        });
+        
+        flower3.addEventListener('click', function() {
+            growFlower(flower3);
+        });
+        
+        // Initial confetti burst
+        setTimeout(() => {
+            createConfetti(30);
+        }, 1000);
+    });
+</script>
 </body>
 </html>
